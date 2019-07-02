@@ -96,14 +96,19 @@ TextView tvdate , tvbmi , tvOut;
         float bmi = prefs.getFloat("BMI",0);
         String output = prefs.getString("Output","No Output!");
         tvdate.setText(date);
-        tvbmi.setText(bmi+"");
+        tvbmi.setText(String.format("%f",bmi));
         tvOut.setText(output);
 
     }
     @Override
     protected void onPause() {
         super.onPause();
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        SharedPreferences.Editor prefEdit = prefs.edit();
+        float weight = Float.parseFloat(etweight.getText().toString());
+        float height = Float.parseFloat(etheight.getText().toString());
+        prefEdit.putFloat("Weight" ,weight);
+        prefEdit.putFloat("Height" ,height);
     }
 }
 
